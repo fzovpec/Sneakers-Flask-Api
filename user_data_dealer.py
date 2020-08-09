@@ -2,18 +2,30 @@ from common_exceptions import DataException
 
 
 class UserData:
-    def __init__(self, get_data_url, modify_data_url, delete_data_url):
-        self.get_data_url = get_data_url
-        self.modify_data_url = modify_data_url
-        self.delete_data_url = delete_data_url
+    def __init__(self, server_data_dealer_url):
+        self.server_data_dealer_url = server_data_dealer_url
 
-    def get_the_data(self, data, session):
+    def get_the_data(self, data, session, request_id=None):
         '''
             Wrapper for all the function where the app should get some data from the server.
             Example: get all the tasks for some particular user or get his billing information for some
             particular shop
         '''
-        response = session.post(self.get_data_url, json=data)
+        if request_id:
+            response = session.post('{}{}/'.format(self.server_data_dealer_url, request_id), json=data)
+            status = self.response_handler(response)
+            return status
+
+        response = session.post(self.server_data_dealer_url, json=data)
+        status = self.response_handler(response)
+        return status
+
+    def create_the_data(self, data, session):
+        '''
+            Wrapper for any creating data function.
+            Example: Creating a billing information for some particular shop
+        '''
+        response = session.post(self.server_data_dealer_url, json=data)
         status = self.response_handler(response)
         return status
 
@@ -25,7 +37,7 @@ class UserData:
             :param request_id: the modifying requires an id for modify the element. Can be get thought the
             get_the_data() method
         '''
-        response = session.put('{}/{}'.format(self.get_data_url, request_id), json=data)
+        response = session.put('{}{}/'.format(self.server_data_dealer_url, request_id), json=data)
         status = self.response_handler(response)
         return status
 
@@ -35,7 +47,7 @@ class UserData:
             Example of usage: deleting user's profile information for some particular shop or deleting
             the user's proxies information
         '''
-        response = session.delete('{}/{}'.format(self.delete_data_url, request_id))
+        response = session.delete('{}{}/'.format(self.server_data_dealer_url, request_id))
         status = self.response_handler(response)
         return status
 

@@ -12,7 +12,7 @@ class UserVerification:
         response = session.post(self.verification_url, json=data)
         status = self.response_handler(response)
 
-        return status
+        return status, response.cookies['csrftoken']
 
     @staticmethod
     def response_handler(response):
