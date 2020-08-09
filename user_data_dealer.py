@@ -5,20 +5,20 @@ class UserData:
     def __init__(self, server_data_dealer_url):
         self.server_data_dealer_url = server_data_dealer_url
 
-    def get_the_data(self, data, session, request_id=None):
+    def get_the_data(self, session, request_id=None):
         '''
             Wrapper for all the function where the app should get some data from the server.
             Example: get all the tasks for some particular user or get his billing information for some
             particular shop
         '''
         if request_id:
-            response = session.post('{}{}/'.format(self.server_data_dealer_url, request_id), json=data)
+            response = session.get('{}{}/'.format(self.server_data_dealer_url, request_id))
             status = self.response_handler(response)
             return status
 
-        response = session.post(self.server_data_dealer_url, json=data)
+        response = session.get(self.server_data_dealer_url)
         status = self.response_handler(response)
-        return status
+        return status, response.text
 
     def create_the_data(self, data, session):
         '''
@@ -27,7 +27,7 @@ class UserData:
         '''
         response = session.post(self.server_data_dealer_url, json=data)
         status = self.response_handler(response)
-        return status
+        return status, response.text
 
     def modify_the_data(self, data, session, request_id):
         '''
@@ -39,7 +39,7 @@ class UserData:
         '''
         response = session.put('{}{}/'.format(self.server_data_dealer_url, request_id), json=data)
         status = self.response_handler(response)
-        return status
+        return status, response.text
 
     def delete_the_data(self, session, request_id):
         '''
@@ -49,7 +49,7 @@ class UserData:
         '''
         response = session.delete('{}{}/'.format(self.server_data_dealer_url, request_id))
         status = self.response_handler(response)
-        return status
+        return status, response.text
 
     @staticmethod
     def response_handler(response):

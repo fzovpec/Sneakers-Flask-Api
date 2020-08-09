@@ -113,7 +113,7 @@ class UserVerificationTest(unittest.TestCase):
         with self.assertRaises(DataException):
             user_verifyer.verify(data=data, session=session)
 
-    def verify_from_json(self):
+    def test_verify_from_json(self):
         # Initializing the session and data for request
         session = requests.Session()
         key = 'e16462c64dab04a81721ab58d21f8ce02151097f35e39600c8e41769af78be795e7b15b33d97f8adbfaf74672c74e50aea32071aeadea3cddf3cd1f319c5fac3152407c15a75ae083309ab09cb5f87ff297a3ddcd88593dac2981fb2519423dcb170df6c4992295507b7bd47adbcc1e525812f93a150db74d7126cdcbbaadf749574ea2b9dc0785d8fb137a40a6dcc31205e8948dd2a8b2350abc7cce3db946640054f7cbbedd13ef8efb3ec76b5ad8b030074a41e6f9a34acdefc3be02b00fa59d9b58da6dae3d9aec59183ce0df03c240a49c7ed00e3d91c5693f6377fbadcf64088b9ad58a267e475318a388b96e01c07cc892163d4238fe22e7058dfe27fdd073eee87f90c0ea5cb30c1c0963abfd3fc57c4349f059416e0049591bef07793ee4bf460d48e351209d6f10db9ec9fee8a902eb2071fe9212231ab8742a2b3441350a2ebacc9304644a300a88d2923c059c94e33f25f824c3c1b3a3c934a662750643c6c003a0c7b8240bca6d1711d5d5aa2f350aaa68335219b2d5f2b4fb7ca19d2e8c1f7da8f69ddedf5bf74ed3790e8a924b1a8a2f70c3053fe6dabf272aa0eadad1d6c0c5e9c2c3f6a46077c95b778b577361dd402a7b6733d42d233e0cf6c3e737e383e067bc4a33d1059b8588983a53d09947878f91fb9c95d4e08073a2dc0a211e946233adbafc12bd36bc6806b78e3da1e31545f4a39c4428d91b010494c0d755bc48ec4a20113579b726a2dd1fefcd1a33121db69782f9394c7f64db7c9c03732b582a5b9288094e48adcde30f7902b412155a16480590a7da895ffeefe6379c58ee7eab2c3af39067d978986cf3404bfc53835b9b764db17691693f01b0cc461be332cc59f8cb28778ec773089d5b7f0954773845aebd95f86a0bfa6c0a4f91d92f8d4fd0d7a17801703664027f54e027bc1b88e6a895b54635e15db688c89c671cbdd4b0f091eb373924d4acca9329d817f6d61f4bf00279595315eecf06b0d9aa59449c2aa990d0370faf75da62fd608a93131d480be43f00f5ef4dac1c029256532d4009d1af4cfe037097e473a11f000f90c40fb6f6d954c20c74946856f4c05802dc98a50b623f7ff216362455d9a88485896284bf283277db789597e0993b662a339ef37a257fbd0237162d66d0cecb4e0cfb3a33b8a7b60975948d787ce92c619755059b727b544434e3b395d616e5bf2be74a0e606c1143cbc9033246b97f7c87bede086fd0b9eb896d2e57a1a995730bff6b8f6ca4016cdfccd9a08ad0312654e7335775be55819883e73d4751faf07a2b8cfd87ed6066cd3dc76c8c4fa5e89407436ebed71ecd28f4f2542bd15554c193dfa66e8355984a5398da707d4e1824a841614aaee43e32c2ba789cd63bd3ddd80a07af9de8f0cea923a54d90b2f42dcae6636d310e5892b37fa8ad986a2bf047d174d86a6'
@@ -122,7 +122,7 @@ class UserVerificationTest(unittest.TestCase):
         data = {
             "data": {
                 "username": "sample",
-                "password": "admiewfewecadmin",
+                "password": "adminadmin",
                 "key": key,
                 "mac": str(gma()),
                 "product_id": product_id
@@ -134,6 +134,6 @@ class UserVerificationTest(unittest.TestCase):
 
         data = json_worker.get_the_data_from_json()
         # Testing
-        user_verifyer = UserVerification('{}{}'.format(SERVER_ADDRESS, '/api/auth/keys/'))
-        response = user_verifyer.verify(data=data, session=session)
+        user_verifyer = UserVerification()
+        response, _ = user_verifyer.verify(data=data, session=session)
         self.assertTrue(response)
