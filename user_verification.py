@@ -1,4 +1,5 @@
 from common_exceptions import DataException
+from on_device_data_worker import JSONWorker
 
 
 class UserVerification:
@@ -9,6 +10,13 @@ class UserVerification:
         '''
             The function which verifies the user and verifies if the user can have access to the product
         '''
+        response = session.post(self.verification_url, json=data)
+        status = self.response_handler(response)
+
+        return status, response.cookies['csrftoken']
+
+    def verify_from_json(self, session):
+        data = JSONWorker.get_the_data_from_json()
         response = session.post(self.verification_url, json=data)
         status = self.response_handler(response)
 
