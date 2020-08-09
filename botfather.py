@@ -1,5 +1,6 @@
 from datetime import datetime
 import time
+from common_exceptions import IllegalArgumentsPassedToTheBotException
 
 
 class BotFather:
@@ -8,6 +9,10 @@ class BotFather:
         self.is_login_required = is_login_required
         self.login_instantly = login_instantly
         self.login_before = login_before
+
+    def check_the_arguments(self):
+        if self.is_login_required and self.login_before:
+            raise IllegalArgumentsPassedToTheBotException()
 
     def execute_login_task(self, task_time, login_data: dict):
         '''
