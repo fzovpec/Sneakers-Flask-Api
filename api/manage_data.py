@@ -26,7 +26,6 @@ class DataManager:
         data_manager = task_description_json['task']['data_manager']  # The object which should be managing the data
         action_type = task_description_json['task']['action_type']  # The type of the action which should be executed
         task_data = task_description_json['task']  # The data for the data manager
-        required_id = task_description_json['task']['additional_arguments']['required_id']  # id, if it's required
 
         if data_manager == 'profiles':
             # Managing user profiles action

@@ -23,3 +23,9 @@ class IllegalApiDataManagerNameException(Exception):
     def __init__(self, data_manager):
         self.message = '{} is illegal data manager name. Only \"profiles\", \"billing\", \"items\", \"tasks\",' \
                        ' \"shipping\" and \"proxies\" are legal ones'.format(data_manager)
+
+
+class CannotLogUsingJSONException(Exception):
+    def __init__(self, reason):
+        self.message = 'Cannot login using json file. Probably you have to provide a new data for user.' \
+                       ' Reason - {}'.format(reason)
