@@ -17,3 +17,9 @@ class IllegalApiDataManagerActionTypeException(Exception):
     def __init__(self, action_type):
         self.message = '{} is illegal action type. Only \"create\", \"modify\", \"get\" and \"delete\" are legal' \
                        ' ones'.format(action_type)
+
+
+class IllegalApiDataManagerNameException(Exception):
+    def __init__(self, data_manager):
+        self.message = '{} is illegal data manager name. Only \"profiles\", \"billing\", \"items\", \"tasks\",' \
+                       ' \"shipping\" and \"proxies\" are legal ones'.format(data_manager)
