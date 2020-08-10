@@ -22,7 +22,7 @@ class ProfilesTest(unittest.TestCase):
             "data": {
                 "name": "test_name",
                 "login": "ghe",
-                "email": "1",
+                "email": "fse@gmail.com",
                 "password": "1",
                 "firstname": "1",
                 "lastname": "1",
