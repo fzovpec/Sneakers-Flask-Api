@@ -10,8 +10,19 @@ API makes it possible to login into the server using the on device app. Logining
   'type': 'login',
   'task': {
     'data': 'The data required by server to login. For more information read a server-side API
-          README. If the data not passed, then data from config.json is used'
+          README'
     }
+}
+```
+
+After the first loggining the data gets saved to the config.json file.
+
+If you want to execute the login with the json data saved on the device, then send a request of the following form
+
+```
+{
+  'type': 'login',
+  'task': {}  # IMPORTANT: in order to login using the config.json data leave the task dict empty 
 }
 ```
 
@@ -60,5 +71,21 @@ Example of interaction with the API
          }
       }
    }
+}
+```
+
+## API interaction with the bots
+
+In order to use the bots from the API, you need to send the post request of the following form:
+```
+{
+  'type': 'use_bot',
+  'task': {
+    'bot_name': 'The name of the bot you want to execute. The bot should be listed in 
+        the bots_list dictionary in the config.py file. More about that in the adding new bots section.
+    'action_type': 'The type of the action you want to execute. Allowed actions - login, register, buy, 
+        execute_whole_buying_process and another listed in the bot class definition. More about
+        those actions is written in the adding bots section'
+  }
 }
 ```
