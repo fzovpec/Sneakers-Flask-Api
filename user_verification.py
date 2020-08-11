@@ -23,6 +23,12 @@ class UserVerification:
 
         return status, response.cookies['csrftoken']
 
+    def verify_existing_session(self, session):
+        response = session.get(self.verification_url)
+        if response.text == '"True"':
+            return True
+        return False
+
     @staticmethod
     def response_handler(response):
         if response.status_code == 200:

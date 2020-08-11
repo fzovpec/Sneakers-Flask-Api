@@ -29,3 +29,8 @@ class CannotLogUsingJSONException(Exception):
     def __init__(self, reason):
         self.message = 'Cannot login using json file. Probably you have to provide a new data for user.' \
                        ' Reason - {}'.format(reason)
+
+
+class UserIsNotLoggedException(Exception):
+    def __init__(self):
+        self.message = 'The user is not logged in. Probably the auth key is outdatted'

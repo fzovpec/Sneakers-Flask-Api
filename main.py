@@ -2,7 +2,8 @@ from flask import Flask, request
 from flask_restful import Resource, Api
 from common_exceptions import IllegalApiTypeException
 from user_verification import UserVerification
-from common_exceptions import DataException, CannotLogUsingJSONException
+from api.manage_data import DataManager
+from common_exceptions import DataException, CannotLogUsingJSONException, UserIsNotLoggedException
 import requests
 
 app = Flask(__name__)
@@ -11,7 +12,7 @@ api = Api(app)
 
 class OnDeviceApi(Resource):
     def __init__(self):
-        self.data_manager = ''
+        self.data_manager = DataManager()
         self.use_bot = ''
         self.user_verification = UserVerification()
         self.session = requests.Session()
@@ -23,7 +24,12 @@ class OnDeviceApi(Resource):
             return {'Result': 'Successfully logged in'}
 
         elif task_description_json['type'] == 'manage_data':
-            pass
+            if self.user_verification.verify_existing_session(session=self.session):
+                self.data_manager.task_executor(session=self.session, task_description_json=task_description_json)
+                return {'Result': 'Task was successfully executed'}
+
+            else:
+                raise UserIsNotLoggedException()
 
         elif task_description_json['type'] == 'use_bot':
             pass
