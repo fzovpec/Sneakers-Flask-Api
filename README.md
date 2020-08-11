@@ -85,7 +85,12 @@ In order to use the bots from the API, you need to send the post request of the 
         the bots_list dictionary in the config.py file. More about that in the adding new bots section.
     'action_type': 'The type of the action you want to execute. Allowed actions - login, register, buy, 
         execute_whole_buying_process and another listed in the bot class definition. More about
-        those actions is written in the adding bots section'
+        those actions is written in the adding bots section',
+    'profiles_id': 'The id of the profile out of the user profiles list(in some particular shop). If not specified, then used 0 by default',
+    'billing_id': 'The id of the user's billing information. 0 by default',
+    'proxies_id': 'The id of the user's proxies. 0 by default',
+    'item_id': 'Required if action_type == execute_whole_buying_process. Otherwise not required',
+    'shipping_id': 'The id of the user's shipping data list. 0 by default'
   }
 }
 ```
