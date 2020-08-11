@@ -34,3 +34,9 @@ class CannotLogUsingJSONException(Exception):
 class UserIsNotLoggedException(Exception):
     def __init__(self):
         self.message = 'The user is not logged in. Probably the auth key is outdatted'
+
+
+class IllegalApiBotManagerActionTypeException(Exception):
+    def __init__(self, action_type):
+        self.message = '{} is invalid action_type. The valid action_types are \"login\", \"register\", \"buy\" and ' \
+                       '\"execute_whole_buying_process\" are legal ones'.format(action_type)
