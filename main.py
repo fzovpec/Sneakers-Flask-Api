@@ -48,3 +48,9 @@ class OnDeviceApi(Resource):
                 self.user_verification.verify_from_json(session=self.session)
             except DataException as ex:
                 raise CannotLogUsingJSONException(ex.message)
+
+
+api.add_resource(OnDeviceApi, '/')
+
+if __name__ == '__main__':
+    app.run()
