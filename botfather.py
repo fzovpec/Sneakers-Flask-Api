@@ -32,25 +32,25 @@ class BotFather:
                 self.wait_until_a_particular_moment(task_time - datetime_login_before)
                 self.login(login_data)
 
-    def execute_task(self, item_link: str, billing_data: dict = None, address_data: dict = None,
-                     profile_data: dict = None, proxies_data: dict = None):
+    def register(self, billing_data=None, shipping_data=None, profile_data=None,
+                 proxies_data=None):
         '''
             Wrapper for the function executing. The monitor sends a link and the item gets bought
             :param item_link - The link using which the item's getting bought
             :param billing_data, address_data, profile_data, proxies_data - user billing data.
              Provided only if required for item buying
         '''
-        self.buy_item(item_link, billing_data, address_data, profile_data, proxies_data)
+        pass
 
-    def buy_item(self, item_link, billing_data: dict = None, address_data: dict = None, profile_data: dict = None,
-                 proxies_data: dict = None):
+    def buy_item(self, item_link: str, billing_data=None, shipping_data=None, profile_data=None,
+                 proxies_data=None):
         '''
             The wrapper for buying item function. Should be overwritten by the bot. The arguments should be the same,
             even if some of them are not used
         '''
         pass
 
-    def login(self, login_data):
+    def login(self, profiles_data):
         ''' The wrapper for the login function. Should be overwritten by the bot class. The arguments should remain
         the same'''
         pass
