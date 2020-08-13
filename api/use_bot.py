@@ -11,7 +11,7 @@ class BotManager:
 
     def execute_the_bot_task(self, task_description_json, user_session):
         bot_name = task_description_json['task']['bot_name']
-        bot = self.bot_list[bot_name]['bot_class']
+        bot = self.bot_list[bot_name]['bot_class']()
         shop_name = self.bot_list[bot_name]['shop']
         action_type = task_description_json['task']['action_type']
         profiles_idx, billing_idx, shipping_idx, proxies_idx, items_idx = \

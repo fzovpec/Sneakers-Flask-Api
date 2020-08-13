@@ -50,7 +50,7 @@ class BotFather:
         '''
         pass
 
-    def login(self, profiles_data):
+    def login(self, profiles_data=None):
         ''' The wrapper for the login function. Should be overwritten by the bot class. The arguments should remain
         the same'''
         pass
