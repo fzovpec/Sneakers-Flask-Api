@@ -94,3 +94,28 @@ In order to use the bots from the API, you need to send the post request of the 
   }
 }
 ```
+
+## Adding your bot to API
+
+In order to use your bot with the API, you need to add it into the API. To do it, you need to follow these steps:
+
+1. Add your bot into the config.py file as following
+```
+bots_list = {
+  ...
+  '<bot_name>': {
+    'shop': 'Shop name, same as in database. Used for getting the profiles, billing and another user's data from the server',
+    'bot_class': 'The class of the bot, which should be imported to the config.py module
+  }
+}
+```
+2. The bot should have the following methods which are responsible for the following action:
+
+2.1. buy_item - buying the item user using the product link
+
+2.2. login - login into the product site/application
+
+2.3. register - register the user
+
+  
+Those function should have the same argument the BotFather's functions have, even if some arguments are not used by the function
