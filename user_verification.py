@@ -6,6 +6,7 @@ from config import SERVER_ADDRESS
 class UserVerification:
     def __init__(self, verification_url='{}{}'.format(SERVER_ADDRESS, '/api/auth/keys/')):
         self.verification_url = verification_url
+        self.json_data = JSONWorker()
 
     def verify(self, session, data):
         '''
@@ -13,11 +14,12 @@ class UserVerification:
         '''
         response = session.post(self.verification_url, json=data)
         status = self.response_handler(response)
+        self.json_data.set_the_data_to_json(data)
 
         return status, response.cookies['csrftoken']
 
     def verify_from_json(self, session):
-        data = JSONWorker.get_the_data_from_json()
+        data = self.json_data.get_the_data_from_json()
         response = session.post(self.verification_url, json=data)
         status = self.response_handler(response)
 
