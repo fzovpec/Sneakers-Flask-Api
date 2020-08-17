@@ -29,32 +29,32 @@ class DataManager:
 
         if data_manager == 'profiles':
             # Managing user profiles action
-            self.execute_action(object_for_execution=self.profiles, action_type=action_type, task_data=task_data,
+            response = self.execute_action(object_for_execution=self.profiles, action_type=action_type, task_data=task_data,
                                 session=session)
         elif data_manager == 'billing':
             # Managing user billing action
-            self.execute_action(object_for_execution=self.billing, action_type=action_type, task_data=task_data,
+            response = self.execute_action(object_for_execution=self.billing, action_type=action_type, task_data=task_data,
                                 session=session)
         elif data_manager == 'items':
             # Managing user items action
-            self.execute_action(object_for_execution=self.items, action_type=action_type, task_data=task_data,
+            response = self.execute_action(object_for_execution=self.items, action_type=action_type, task_data=task_data,
                                 session=session)
         elif data_manager == 'tasks':
             # Managing user tasks action
-            self.execute_action(object_for_execution=self.tasks, action_type=action_type, task_data=task_data,
+            response = self.execute_action(object_for_execution=self.tasks, action_type=action_type, task_data=task_data,
                                 session=session)
         elif data_manager == 'shipping':
             # Managing user shopping action
-            self.execute_action(object_for_execution=self.shipping, action_type=action_type, task_data=task_data,
+            response = self.execute_action(object_for_execution=self.shipping, action_type=action_type, task_data=task_data,
                                 session=session)
         elif data_manager == 'proxies':
             # Managing user proxies action
-            self.execute_action(object_for_execution=self.proxies, action_type=action_type, task_data=task_data,
+            response = self.execute_action(object_for_execution=self.proxies, action_type=action_type, task_data=task_data,
                                 session=session)
         else:
             raise IllegalApiDataManagerNameException(data_manager)
 
-        return True
+        return response
 
     def execute_action(self, action_type: str, object_for_execution: object, task_data: dict, session):
         '''
@@ -65,15 +65,18 @@ class DataManager:
         if action_type == 'create':
             data = task_data['data']
             object_for_execution.create_the_data(data=data, session=session)
+            return True
         elif action_type == 'modify':
             data = task_data['data']
             required_id = task_data['required_id']
             object_for_execution.modify_the_data(data=data, session=session)
+            return True
         elif action_type == 'get':
-            object_for_execution.get_the_data(session=session)
+            _, response = object_for_execution.get_the_data(session=session)
+            return response
         elif action_type == 'delete':
             required_id = task_data['required_id']
             object_for_execution.delete_the_data(session=session, required_id=required_id)
-            pass
+            return True
         else:
             raise IllegalApiDataManagerActionTypeException(action_type)
